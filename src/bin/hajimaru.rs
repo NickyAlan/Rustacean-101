@@ -1,4 +1,4 @@
-// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=4677
+// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=5937
 
 fn first_name(name: &str) {
     println!("Hey! {}", name);
@@ -36,4 +36,23 @@ fn main() {
     first_name("Jayson");
     println!("{}", add(10, 5));
     what_about(4);
+
+    // match
+    let some_int = 3;
+    match some_int {
+        1 => println!("its 1"),
+        2 => println!("its 2"),
+        3 => println!("its 3"),
+        _ => println!("something else"),
+    }
+
+    //loop
+    let mut i = 3;
+    loop {
+        println!("{:?}!", i);
+        i-=1;
+        if i == 0 {
+            break;
+        }
+    }
 }
