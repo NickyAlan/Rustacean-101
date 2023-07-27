@@ -1,4 +1,4 @@
-// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=5937
+// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=9365
 
 fn first_name(name: &str) {
     println!("Hey! {}", name);
@@ -18,6 +18,34 @@ fn what_about(number: i32) {
     }
     else {
         println!("{} is equal to {}", number, n);
+    }
+}
+
+// enum
+enum Direction {
+    Left,
+    Right,
+    Up
+}
+
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+// struct
+struct Box {
+    depth: i32,
+    width: i32,
+    height: i32
+}
+
+fn print_color(color: Color) {
+    match color {
+        Color::Red => println!("Red"),
+        Color::Green => println!("Green"),
+        Color::Blue => println!("Blue"),
     }
 }
 
@@ -49,10 +77,30 @@ fn main() {
     //loop
     let mut i = 3;
     loop {
-        println!("{:?}!", i);
+        println!("{:?}", i);
         i-=1;
         if i == 0 {
             break;
         }
     }
+
+    let go = Direction::Left;
+    match go {
+        Direction::Left => println!("go left"),
+        Direction::Right => println!("go right"),
+        Direction::Up => println!("go up"),
+    }
+
+    print_color(Color::Red);
+
+    let my_box = Box {
+        depth: 3,
+        width: 5,
+        height: 5
+    };
+    println!("my_box area: {:?}", my_box.width * my_box.height);
+
+    // tuples
+    let coord = (2, 3);
+    println!("x: {:?}, y: {:?}", coord.0, coord.1)
 }
