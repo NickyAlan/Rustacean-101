@@ -1,11 +1,11 @@
-// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=9365
+// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=12181
 
 fn first_name(name: &str) {
     println!("Hey! {}", name);
 }
 
 fn add(a: i32, b: i32) -> i32 {
-    return a + b;
+    a + b
 }
 
 fn what_about(number: i32) {
@@ -49,6 +49,13 @@ fn print_color(color: Color) {
     }
 }
 
+enum Access {
+    Admin,
+    Manager,
+    User,
+    Guest
+}
+
 fn main() {
     let mut sum_number = 0;
     for n in 5..=10 {
@@ -62,7 +69,8 @@ fn main() {
     }
     println!("{}", sum_number);
     first_name("Jayson");
-    println!("{}", add(10, 5));
+    let (x, y) = (10, 6);
+    println!("{}", add(x, y));
     what_about(4);
 
     // match
@@ -102,5 +110,38 @@ fn main() {
 
     // tuples
     let coord = (2, 3);
-    println!("x: {:?}, y: {:?}", coord.0, coord.1)
+    println!("x: {:?}, y: {:?}", coord.0, coord.1);
+
+    // expression: accept return value
+    let access_level = Access::Guest;
+    let can_access_file = match access_level {
+        Access::Admin => true,
+        _ => false,
+    };
+
+    println!("can access: {:?}", can_access_file);
+    
+    // ownership: data use in fn -> delete when complete
+    // borrow : use & for borrow data
+    let my_color = Color::Blue;
+    fn display_color(my_color: &Color) {
+        match my_color {
+            Color::Red => println!("Red"),
+            Color::Green => println!("Green"),
+            Color::Blue => println!("Blue"),
+        }
+    }
+    display_color(&my_color);
+    display_color(&my_color);
+
+    // impl: implement something
+    impl Box {
+        fn cal_volumn(&self) -> i32 {
+            self.width * self.height * self.depth
+        }
+    }
+    let this_box = Box{depth: 3, width: 5, height: 4};
+    let vol = this_box.cal_volumn();
+    println!("volumn: {:?}", vol);
+
 }
