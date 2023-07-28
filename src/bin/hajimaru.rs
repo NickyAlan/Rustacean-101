@@ -1,4 +1,4 @@
-// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=12181
+// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=14994
 
 fn first_name(name: &str) {
     println!("Hey! {}", name);
@@ -54,6 +54,40 @@ enum Access {
     Manager,
     User,
     Guest
+}
+
+enum BoxColor {
+    Brown,
+    Red
+}
+
+impl BoxColor {
+    fn print(&self) {
+        match self {
+            BoxColor::Brown => println!("BoxColor: Brown"),
+            BoxColor::Red => println!("BoxColor: Red")
+        }
+    }
+}
+
+struct Dimentions {
+    width: f32,
+    heigth: f32,
+    depth: f32
+}
+
+impl Dimentions {
+    fn print(&self) {
+        println!("width: {:?}", self.width);
+        println!("heigth: {:?}", self.heigth);
+        println!("depth: {:?}", self.depth);
+    }
+}
+
+struct ShippingBox {
+    color: BoxColor,
+    weight: f32,
+    dimentions: Dimentions
 }
 
 fn main() {
@@ -143,5 +177,80 @@ fn main() {
     let this_box = Box{depth: 3, width: 5, height: 4};
     let vol = this_box.cal_volumn();
     println!("volumn: {:?}", vol);
+
+    impl ShippingBox {
+        fn new(weight: f32, color: BoxColor, dimentions: Dimentions) -> Self {
+            Self {weight, color, dimentions}
+        }
+        fn print(&self) {
+            self.color.print();
+            self.dimentions.print();
+            println!("weight: {:?}", self.weight);
+        }
+    }
+
+    let small_dimentions = Dimentions {
+        width: 1.4,
+        heigth: 3.1,
+        depth: 3.2,
+    };
+
+    let small_box = ShippingBox::new(5.0, BoxColor::Red, small_dimentions);
+    small_box.print();
+
+    // vector
+    let mut numbers = vec![1, 2, 3];
+    numbers.push(1);
+    numbers.push(3);
+    numbers.pop();
+    println!("{:?}", numbers);
+    println!("{:?}", numbers[numbers.len() - 1]);
+
+    // &bowrrow in for loop
+    for num in &numbers {
+        println!("{:?}", num);
+    }
+
+    println!("--");
+    for idx in 0..numbers.len() {
+        println!("idx:{:?} val:{:?}", idx, numbers[idx]);
+    }
+
+    // string
+    let owned_string = "owned string".to_owned(); // or String::from("owned string")
+    struct Person {
+        name: String, // in struct must use String owner / not &str borrow -> use in fn
+        age: i8,
+        fav_color: String
+    }
+
+    let people = vec![
+        Person {
+            name: "Jame".to_owned(),
+            age: 10,
+            fav_color: "Blue".to_owned()
+        },
+        Person {
+            name: "Ball".to_owned(),
+            age: 14,
+            fav_color: "Red".to_owned()
+        },Person {
+            name: "Owen".to_owned(),
+            age: 12,
+            fav_color: "Black".to_owned()
+        },
+    ];
+
+    fn just_print(data: &str) {
+        println!("{:?}", data);
+    } 
+
+    for person in people {
+        if person.age > 10 {
+            just_print(&person.name);
+            just_print(&person.fav_color);
+        };
+    }
+    
 
 }
