@@ -1,4 +1,4 @@
-// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=14994
+// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=15608
 
 fn first_name(name: &str) {
     println!("Hey! {}", name);
@@ -9,7 +9,7 @@ fn add(a: i32, b: i32) -> i32 {
 }
 
 fn what_about(number: i32) {
-    let n = 5;
+    let n: i32 = 5;
     if number > n {
         println!("{} is greater than {}", number, n);
     }
@@ -148,7 +148,7 @@ fn main() {
 
     // expression: accept return value
     let access_level = Access::Guest;
-    let can_access_file = match access_level {
+    let can_access_file: bool = match access_level {
         Access::Admin => true,
         _ => false,
     };
@@ -157,7 +157,7 @@ fn main() {
     
     // ownership: data use in fn -> delete when complete
     // borrow : use & for borrow data
-    let my_color = Color::Blue;
+    let my_color: Color = Color::Blue;
     fn display_color(my_color: &Color) {
         match my_color {
             Color::Red => println!("Red"),
@@ -217,7 +217,7 @@ fn main() {
     }
 
     // string
-    let owned_string = "owned string".to_owned(); // or String::from("owned string")
+    let owned_string: String = "owned string".to_owned(); // or String::from("owned string")
     struct Person {
         name: String, // in struct must use String owner / not &str borrow -> use in fn
         age: i8,
@@ -243,7 +243,7 @@ fn main() {
 
     fn just_print(data: &str) {
         println!("{:?}", data);
-    } 
+    }
 
     for person in people {
         if person.age > 10 {
@@ -251,6 +251,16 @@ fn main() {
             just_print(&person.fav_color);
         };
     }
-    
+
+    // derive(debug): debug printing
+    // derive(clone, copy) -> automate &copy
+    #[derive(Debug)] 
+    enum Faker {
+        Manager,
+        Provider,
+    }
+
+    let faker = Faker::Manager;
+    println!("{:?}", faker);
 
 }
