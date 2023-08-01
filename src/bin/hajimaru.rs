@@ -1,4 +1,4 @@
-// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=15608
+// https://youtu.be/lzKeecy4OmQ?list=PLOISWgsXLgA60iCuk3UwPVmrbW6MHWN0f&t=19690
 
 fn first_name(name: &str) {
     println!("Hey! {}", name);
@@ -88,6 +88,27 @@ struct ShippingBox {
     color: BoxColor,
     weight: f32,
     dimentions: Dimentions
+}
+
+// advanced match
+enum Mouse {
+    LeftClick,
+    RightClick,
+    MiddleClick,
+    Scroll(i32),
+    Move(i32, i32),
+}
+
+struct Ticket {
+    event: String,
+    price: f32
+}
+
+// option<> -> some, none
+// use "some" for declare the optional thing
+struct Customer {
+    age: Option<i32>,
+    email: String,
 }
 
 fn main() {
@@ -249,7 +270,7 @@ fn main() {
         if person.age > 10 {
             just_print(&person.name);
             just_print(&person.fav_color);
-        };
+        }
     }
 
     // derive(debug): debug printing
@@ -260,7 +281,55 @@ fn main() {
         Provider,
     }
 
-    let faker = Faker::Manager;
+    let faker: Faker = Faker::Manager;
     println!("{:?}", faker);
+
+    let mouse_move: Mouse = Mouse::Move(11, 20);
+    match mouse_move {
+        Mouse::Move(10, 20) => println!("it's 10x20"),
+        Mouse::Move(x, y) => println!("x:{:?} y:{:?}", x, y), // match with ::move but not x, y position
+        _ => println!("else"),
+    }
+
+    let concert: Ticket = Ticket {event: "concert".to_owned(), price: 50.5};
+    match concert {
+        Ticket {price: 50.5, event} => println!("event @50.5: {:?}", event),
+        Ticket {price, ..} => println!("{:?}", price), // don't interest the event, if price not what i want    
+    }
+
+    // optinal
+    let ramsdale = Customer {
+        age: Some(22), email: "ram@example.com".to_owned(),
+    };
+
+    let tomi = Customer {
+        age: None, email: "tomi@example.com".to_owned(),
+    };
+
+    match tomi.age {
+        Some(age) => println!("customer: {:?} years old", age),
+        None => println!("age not provied!")
+    }
+
+
+    // error handle
+    #[derive(Debug)]
+    enum Choice {
+        MainMenu,
+        Start,
+        Stop     
+    }
+
+    // return Result<Ok, Err>
+    fn get_choice(input: &str) -> Result<Choice, String> {
+        match input {
+            "mainmenu" => Ok(Choice::MainMenu),
+            "start" => Ok(Choice::Start),
+            "stop" => Ok(Choice::Stop),
+            _ => Err("choice not found".to_owned()),
+        }
+    }
+
+    println!("{:?}", get_choice("x"));
 
 }
