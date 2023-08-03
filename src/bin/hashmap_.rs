@@ -6,7 +6,9 @@ fn main() {
     people.insert("susan", 21);
     people.insert("kim", 24);
     println!("{:?}", people);    
-    println!("{:?}", people.get("kim"));
+    println!("{:?}", people.get(&"kim"));
+
+    *people.get_mut("kim").unwrap() += 10;
 
     for (person, age) in people.iter() {
         if age >= &18 {
